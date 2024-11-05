@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}Clientes{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Clientes</h2>
+        <a href="{% url 'cliente_agregar' %}" class="btn btn-primary">Agregar Cliente</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Documento</th>
+                    <th>Dirección</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Compras</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <tr onclick="window.location='{% url 'cliente_compras' cliente.id %}'">
+                    <td>{{ cliente.id }}</td>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.apellido }}</td>
+                    <td>{{ cliente.documento }}</td>
+                    <td>{{ cliente.direccion }}</td>
+                    <td>{{ cliente.telefono }}</td>
+                    <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.compras_recientes }} compras</td>
+
+                    <td class="text-center">
+                        </a>
+                        <a href="{% url 'cliente_editar' cliente.id %}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{% url 'cliente_eliminar' cliente.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+
+<!--
+"""
+Plantilla para mostrar la lista de clientes en una aplicación web de Django.
+
+Esta plantilla extiende un archivo base HTML y muestra una tabla con todos los clientes existentes,
+permitiendo al usuario ver, editar o eliminar cada cliente. También incluye un botón para agregar 
+un nuevo cliente.
+
+Bloques:
+    - title: Establece el título de la página como "Clientes".
+    - content: Contiene la tabla que lista los clientes con las acciones disponibles (editar y eliminar), 
+      y un botón para agregar un nuevo cliente.
+
+Variables de contexto:
+    - clientes: Un queryset que contiene todos los clientes disponibles, con los siguientes atributos:
+        - id: Identificador único del cliente.
+        - nombre: El nombre del cliente.
+        - apellido: El apellido del cliente.
+        - documento: El número de documento del cliente.
+        - direccion: La dirección del cliente.
+        - telefono: El número de teléfono del cliente.
+        - email: El correo electrónico del cliente.
+""" -->

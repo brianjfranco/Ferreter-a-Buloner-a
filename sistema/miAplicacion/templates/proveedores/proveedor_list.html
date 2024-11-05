@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Proveedores{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Proveedores</h2>
+        <a href="{% url 'proveedor_create' %}" class="btn btn-primary">Agregar Proveedor</a>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Tipo de Producto</th>
+                    <th>Teléfono</th>
+                    <th>Email</th>
+                    <th>Dirección</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for proveedor in proveedores %}
+                <tr>
+                    <td>{{ proveedor.id }}</td>
+                    <td>{{ proveedor.nombre }}</td>
+                    <td>{{ proveedor.tipo_producto }}</td>
+                    <td>{{ proveedor.telefono }}</td>
+                    <td>{{ proveedor.email }}</td>
+                    <td>{{ proveedor.direccion }}</td>
+                    <td class="text-center">
+                        <a href="{% url 'proveedor_update' proveedor.id %}" class="btn btn-warning btn-sm">Editar</a>
+                        <a href="{% url 'proveedor_delete' proveedor.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+
+
+<!--
+"""
+Plantilla para mostrar la lista de proveedores en la aplicación web de Ferretería.
+
+Esta plantilla extiende un archivo base HTML y presenta una tabla que lista todos los proveedores existentes, 
+permitiendo al usuario ver, editar o eliminar cada proveedor. También incluye un botón para agregar 
+un nuevo proveedor.
+
+Bloques:
+    - title: Establece el título de la página como "Proveedores".
+    - content: Contiene la tabla que lista los proveedores con las acciones disponibles (editar y eliminar), 
+      y un botón para agregar un nuevo proveedor.
+
+Variables de contexto:
+    - proveedores: Un queryset que contiene todos los proveedores disponibles, con los siguientes atributos:
+        - id: Identificador único del proveedor.
+        - nombre: El nombre del proveedor.
+        - tipo_producto: El tipo de producto que el proveedor ofrece.
+        - telefono: El número de teléfono del proveedor.
+        - email: La dirección de correo electrónico del proveedor.
+        - direccion: La dirección del proveedor.
+""" -->

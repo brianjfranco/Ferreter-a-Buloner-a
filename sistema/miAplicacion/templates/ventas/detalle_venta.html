@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+
+{% block title %}Detalle de la Venta{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <button type="button" onclick="window.location.href='{% url 'venta_lista' %}'" class="btn btn-secondary">Atrás</button>
+    <h1 class="text-center">Detalle de la Compra</h1>
+    <p><strong>Fecha:</strong> {{ venta.fecha|date:"l, d M Y" }}</p>
+    <p><strong>Hora:</strong> {{ venta.fecha|time:"H:i:s a" }}</p>
+
+
+    <p class="cliente-link"><strong>Cliente:</strong> <a class="cliente-link" href="{% url 'cliente_compras' venta.cliente.id %}">{{ venta.cliente }}</a></p>
+    
+    <p><strong>Medio de Pago:</strong> {{ venta.medio_de_pago }}</p>
+    <p><strong>Comprobante:</strong> {{ venta.numero_comprobante }}</p>
+    <p><strong>Importe Total:</strong> {{ venta.importe_total }}</p>
+
+    <h2>Productos</h2>
+    <table class="table table-striped table-hover align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for detalle in detalles_venta %}
+            <tr>
+                <td>{{ detalle.producto.nombre }}</td>
+                <td>{{ detalle.cantidad }}</td>
+                <td>{{ detalle.precio_unitario }}</td>
+                <td>{{ detalle.cantidad|multiply:detalle.precio_unitario }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Total de la Venta: {{ venta.importe_total }}</h3>
+    
+</div>
+{% endblock %}
+
+
+<!--
+"""
+Plantilla para mostrar los detalles de una venta en la aplicación web de Ferretería.
+
+Esta plantilla extiende un archivo base HTML y presenta un resumen de la venta, 
+incluyendo la fecha, hora, cliente, medio de pago, número de comprobante e importe total. 
+También muestra una tabla con los productos que fueron comprados en la venta, 
+incluyendo su nombre, cantidad, precio unitario y subtotal.
+
+Bloques:
+    - title: Establece el título de la página como "Detalle de la Venta".
+    - content: Contiene la información detallada de la venta y una tabla con los productos adquiridos.
+
+Variables de contexto:
+    - venta: Un objeto que representa la venta, con los siguientes atributos:
+        - fecha: La fecha en que se realizó la venta.
+        - cliente: El cliente que realizó la compra.
+        - medio_de_pago: El método de pago utilizado.
+        - numero_comprobante: El número de comprobante de la venta.
+        - importe_total: El importe total de la venta.
+
+    - detalles_venta: Un queryset que contiene los detalles de los productos de la venta, 
+        con los siguientes atributos:
+        - hora: La hora en que se realizó la venta.
+        - producto: Un objeto que representa el producto vendido, con el atributo nombre.
+        - cantidad: La cantidad de productos comprados.
+        - precio_unitario: El precio por unidad del producto.
+""" -->

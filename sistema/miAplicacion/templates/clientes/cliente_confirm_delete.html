@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Eliminar Cliente{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <h1>Eliminar Cliente</h1>
+    <p>¿Estás seguro de que quieres eliminar a <strong>{{ cliente.nombre }} {{ cliente.apellido }}</strong>?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="{% url 'cliente_lista' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}
+
+
+<!--
+"""
+Plantilla para confirmar la eliminación de un cliente en una aplicación web de Django.
+
+Esta plantilla extiende un archivo base HTML y muestra un mensaje de confirmación
+preguntando al usuario si desea eliminar un cliente específico. Incluye un formulario con 
+un token CSRF para proteger la solicitud y dos botones: uno para confirmar la eliminación 
+y otro para cancelar la acción y volver a la lista de clientes.
+
+Bloques:
+    - title: Establece el título de la página como "Eliminar Cliente".
+    - content: Contiene el mensaje de confirmación mostrando el nombre y apellido del cliente, 
+      un botón para confirmar la eliminación y otro para cancelar.
+
+Variables de contexto:
+    - cliente: El objeto cliente a eliminar, con sus atributos 'nombre' y 'apellido' para mostrar 
+      en el mensaje de confirmación.
+""" -->

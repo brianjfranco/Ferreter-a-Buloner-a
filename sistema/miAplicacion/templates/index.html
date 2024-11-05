@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Ferretería{% endblock %}
+
+
+
+{% block extra_styles %}
+<style>
+    .imagenFondo {
+        background-image: url('{% static 'img/fondo3.jpg' %}');
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 100%;
+        width: 100%;
+        margin: 0;
+        padding: 20px;
+    }
+    .container-fluid {
+        padding: 0;
+    }
+
+    .main-content {
+        text-align: center;
+        padding: 2rem 0;
+        background-color: #f8f9fa; /* Un color de fondo claro para contrastar con la imagen */
+    }
+
+    .main-content h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .main-content p {
+        font-size: 1.25rem;
+        color: #666;
+    }
+
+    .main-content .btn {
+        font-size: 1.25rem;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="imagenFondo"></div> <!-- Esta es solo la imagen de fondo -->
+{% endblock %}
+
+<!--
+"""
+Plantilla para la página principal de la aplicación web de Ferretería.
+
+Esta plantilla define el contenido principal de la página de bienvenida, 
+incluyendo un banner principal y un mensaje de bienvenida. Se utiliza 
+una clase de Bootstrap para un diseño atractivo y responsivo.
+
+Bloques:
+    - content: Contiene el contenido principal de la página, que incluye:
+        - Un div para el banner principal (que puede ser estilizado con una imagen de fondo).
+        - Un contenedor con un encabezado de bienvenida y un párrafo descriptivo que invita al usuario 
+          a explorar la ferretería.
+
+Características:
+    - Utiliza clases de Bootstrap para garantizar que el diseño sea atractivo y se adapte a diferentes tamaños de pantalla.
+    - Proporciona un mensaje claro y atractivo para los visitantes de la ferretería.
+
+Responsabilidades:
+    - Ofrecer una experiencia de usuario amigable y acogedora para los visitantes que ingresan a la aplicación.
+"""
+-->

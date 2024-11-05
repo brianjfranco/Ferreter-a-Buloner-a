@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4">{% if form.instance.pk %}Editar{% else %}Crear{% endif %} Producto</h2>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">  <!-- enctype="multipart/form-data": 
+                                                                Permite que el formulario envíe archivos. 
+                                                                Sin este atributo, si intentas cargar un 
+                                                                archivo (como una imagen), el archivo no 
+                                                                se enviará al servidor y no podrás procesarlo. 
+                                                                Al usar este tipo de codificación, cada archivo 
+                                                                y dato del formulario se envía correctamente. -->
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary">
+                        {% if form.instance.pk %}Actualizar{% else %}Crear{% endif %}
+                    </button>
+                    <a href="{% url 'productos_list' %}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+<!--
+"""
+Plantilla para agregar o editar un producto en la aplicación web de Ferretería.
+
+Esta plantilla extiende un archivo base HTML y presenta un formulario que permite al usuario 
+crear un nuevo producto o editar uno existente. El título y el botón de acción cambian dinámicamente 
+dependiendo de si se está editando un producto existente o creando uno nuevo.
+
+Bloques:
+    - content: Contiene el formulario para crear o editar un producto, que incluye:
+        - Un encabezado que indica si se está creando o editando un producto.
+        - Un formulario con los campos del producto.
+        - Un botón que cambia entre "Actualizar" y "Crear" según la acción.
+        - Un enlace para cancelar la acción y regresar a la lista de productos.
+
+Variables de contexto:
+    - form: El formulario de Django que contiene los datos del producto a agregar o editar.
+
+Responsabilidades:
+    - Permitir a los usuarios gestionar productos de manera eficiente, asegurando que la interfaz sea clara y 
+      fácil de usar para la creación o edición de productos.
+""" -->
+
+

@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block search_url %}{% url 'productos_list' %}{% endblock %}
+{% load static %}
+{% block title %}Productos{% endblock %}
+{% block extra_styles %}
+    <link rel="stylesheet" href="{% static 'css/productos.css' %}">
+{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <!-- Sección de Filtrado -->
+        <div class="col-md-3 filter-section">
+            <h4>Filtrar</h4>
+            <!-- Botón para limpiar los filtros -->
+            <div class="mt-3">
+                <a href="{% url 'productos_list' %}" class="btn btn-secondary">Limpiar Filtros</a>
+            </div>
+            <div class="filter-section">
+                <!-- Filtro por Categoría -->
+                <h5>Categoría</h5>
+                <ul>
+                    <li><a href="?categoria=todo&proveedor={{ request.GET.proveedor }}">Todo</a></li>
+                    {% for categoria in categorias %}
+                    <li><a href="?categoria={{ categoria.nombre }}&proveedor={{ request.GET.proveedor }}">{{ categoria.nombre }}</a></li>
+                    {% endfor %}
+                </ul>
+
+                <!-- Filtro por Proveedor -->
+                <h5>Proveedor</h5>
+                <ul>
+                    {% for proveedor in proveedores %}
+                    <li><a href="?categoria={{ request.GET.categoria }}&proveedor={{ proveedor.nombre }}">{{ proveedor.nombre }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sección de Productos -->
+        <div class="col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="mb-0">Productos</h2>
+                <a href="{% url 'productos_create' %}" class="btn btn-primary">Agregar Producto</a>
+            </div>
+            <div class="row">
+                {% if productos %}
+                    {% for producto in productos %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card product-card">
+                            <h5 class="card-title text-center">{{ producto.nombre }}</h5>
+                            <img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'productos/default.png' %}{% endif %}" class="card-img-top product-img" alt="{{ producto.nombre }}">
+                            <div class="card-body text-center">
+                                <p class="card-text">
+                                    $ {{ producto.precio }}<br>
+                                    Stock: {{ producto.cantidad_stock }}<br>
+                                    Proveedor: {{ producto.proveedor }}<br>
+                                    Categoría: {{ producto.categoria }}
+                                </p>
+                                <div class="d-flex justify-content-between">
+                                    <a href="{% url 'productos_update' producto.pk %}" class="btn btn-warning btn-sm">Editar</a>
+                                    <a href="{% url 'productos_confirm_delete' producto.pk %}" class="btn btn-danger btn-sm">Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <!-- Mostrar un mensaje si no hay resultados -->
+                    <p class="text-center">No se encontraron productos que coincidan con tu búsqueda.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+<!--
+"""
+Plantilla para mostrar la lista de productos en la aplicación web de Ferretería.
+
+Esta plantilla extiende un archivo base HTML y presenta una tabla con todos los productos existentes, 
+permitiendo al usuario ver, editar o eliminar cada producto. También incluye un botón para agregar 
+un nuevo producto.
+
+Bloques:
+    - title: Establece el título de la página como "Productos".
+    - content: Contiene la tabla que lista los productos con las acciones disponibles (editar y eliminar), 
+      y un botón para agregar un nuevo producto.
+
+Variables de contexto:
+    - productos: Un queryset que contiene todos los productos disponibles, con los siguientes atributos:
+        - id: Identificador único del producto.
+        - nombre: El nombre del producto.
+        - precio: El precio del producto.
+        - cantidad_stock: La cantidad en stock del producto.
+        - proveedor: El proveedor del producto.
+        - categoria: La categoría a la que pertenece el producto.
+""" -->

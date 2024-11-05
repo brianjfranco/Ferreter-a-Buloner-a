@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block search_url %}{% url 'venta_lista' %}{% endblock %}  <!-- Esto asegura que el formulario busque en la URL correcta -->
+{% block title %}Ventas{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Ventas</h2>
+        <a href="{% url 'venta_agregar' %}" class="btn btn-primary">Agregar Venta</a>
+    </div>
+    <!-- Verificar si hay ventas -->
+    {% if ventas %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-dark ">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Cliente</th>
+                    <th>Medio de Pago</th>
+                    <th>Importe Total</th>
+                    <th>Número de Comprobante</th>
+                    <th>Anular</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for venta in ventas %}
+                <tr onclick="window.location='{% url 'detalle_venta' venta.id %}'">
+                    <td>{{ venta.fecha|date:"l, d M Y" }}</td>
+                    <td>{{ venta.fecha|time:"H:i:s a"}}</td>
+                    <td>{{ venta.cliente }}</td>
+                    <td>{{ venta.medio_de_pago }}</td>
+                    <td> $ {{ venta.importe_total }}</td>
+                    <td>{{ venta.numero_comprobante }}</td>
+                    <td>
+                        <a href="{% url 'venta_anular' venta.pk %}" class="btn btn-danger btn-sm">Anular</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <!-- Mostrar un mensaje si no hay resultados -->
+    <p class= "text-center">No se encontraron ventas que coincidan con tu búsqueda.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+
+
+<!--
+"""
+Plantilla para mostrar la lista de ventas en la aplicación web de Ferretería.
+
+Esta plantilla extiende un archivo base HTML y presenta una tabla con 
+todas las ventas registradas, permitiendo al usuario agregar nuevas ventas, 
+ver detalles y anular ventas existentes.
+
+Bloques:
+    - title: Establece el título de la página como "Ventas".
+    - content: Contiene la tabla que muestra las ventas y proporciona 
+      enlaces para agregar nuevas ventas y anular ventas existentes.
+
+Variables de contexto:
+    - ventas: Una lista de objetos de ventas, donde cada objeto incluye 
+      información sobre la fecha, cliente, medio de pago, importe total 
+      y número de comprobante.
+
+Elementos de la interfaz:
+    - Encabezado: Muestra el título "Ventas" y un botón para agregar 
+      una nueva venta.
+    - Tabla de ventas: 
+        - Columnas que muestran la fecha, cliente, medio de pago, 
+          importe total y número de comprobante de cada venta.
+        - Cada fila es clicable para redirigir al usuario a la página 
+          de detalles de la venta correspondiente.
+        - Botón "Anular" en cada fila para permitir la anulación de 
+          la venta.
+""" -->
