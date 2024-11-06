@@ -26,7 +26,6 @@ requests==2.31.0
 six==1.16.0
 soupsieve==2.6
 sqlparse==0.5.0
-ttkbootstrap==1.10.1
 typing_extensions==4.12.2
 tzdata==2024.1
 urllib3==2.1.0
